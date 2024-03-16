@@ -62,20 +62,17 @@
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+                            </div>                               
+                            <div class="col-md-8 offset-md-4 mt-3">
                                 @if (Route::has('social-login.redirect'))
-                                <div class="flex items-center justify-end mt-4 align-middle ">
-                                    <a href="{{ route('social-login.redirect',['provider'=>'google']) }}">  
-                                        <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" style="margin-left: 3em;"> 
-                                    </a>
-                                    <a class="btn btn-social-icon btn-twitter">
-                                        <span class="fa fa-twitter"></span>
-                                      </a>
-                                    <a href="{{ route('social-login.redirect',['provider'=>'facebook']) }}" class="btn btn-social-icon btn-facebook"><i class="fa fa-facebook"></i></a>
-                                    <a href="{{ route('social-login.redirect',['provider'=>'github']) }}"> Login with gihub </a>
-                                </div>
-                                
-                                @endif
-
+                                <a href="{{ route('social-login.redirect',['provider'=>'google']) }}">  
+                                    {{-- <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" style="margin-left: 3em;">  --}}
+                                    <i class="fa-brands fa-square-google-plus fa-2xl pe-4"></i>
+                                </a>
+                                <a href="{{ route('social-login.redirect',['provider'=>'facebook']) }}"><i class="fa-brands fa-square-facebook fa-2xl pe-4"></i></a>
+                                <a href="{{ route('social-login.redirect',['provider'=>'github']) }}"><i class="fa-brands fa-square-github fa-2xl pe-4"></i></a>
+                                <a href="{{ route('social-login.redirect',['provider'=>'github']) }}"><i class="fa-brands fa-square-twitter fa-2xl pe-4"></i></a>
+                            @endif                                    
                             </div>
                         </div>
                     </form>

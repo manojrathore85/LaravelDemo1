@@ -11,11 +11,12 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap-social.css') }}" rel="stylesheet">
-
+   
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{asset('fontawesome-free-6.5.1-web/css/fontawesome.css')}}">
+    <link rel="stylesheet" href="{{asset('fontawesome-free-6.5.1-web/css/brands.css')}}">
+    <link rel="stylesheet" href="{{asset('fontawesome-free-6.5.1-web/css/solid.css')}}">
 </head>
 <body>
     <div id="app">
