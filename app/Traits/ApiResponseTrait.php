@@ -4,7 +4,7 @@ namespace App\Traits;
 trait ApiResponseTrait{
     public function success( $message,  $data=[]){
         $response = [
-            'sucess' => true,
+            'success' => true,
             'data' => $data,
             'message' => $message,
         ];

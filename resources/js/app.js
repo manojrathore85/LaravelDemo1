@@ -1,7 +1,9 @@
 import { createApp } from 'vue';
 import App from './app.vue';
+import Toast from 'vue-toastification';
 import router from'./routes.js';
 import store from './store/store.js';
+import 'vue-toastification/dist/index.css';
 
 // Array of JavaScript files to include
 const jsFiles = [
@@ -22,9 +24,22 @@ const jsFiles = [
     document.body.appendChild(script);
   });
 
+
 // const app = createApp({});
 // createApp(App).use(router, store).mount("#app")
 const app = createApp(App);
+// Configure toast options (optional)
+const options = {
+  position: "top-right",
+  timeout: 5000,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  // Add more options as needed
+};
+
+// Use toast plugin
+app.use(Toast, options);
 app.use(router),
 app.use(store),
 app.mount('#app');

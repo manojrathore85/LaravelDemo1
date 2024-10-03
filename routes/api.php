@@ -15,16 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::controller(\App\Http\Controllers\Api\ApiAuthController ::class)->group(function(){
-    Route::post('register', 'register')->name('register');       
-    Route::post('login', 'login')->name('login');        
-    Route::post('logout', 'logout')->name('logout');        
-});
-Route::middleware(['auth','santum'])->group(function(){
-    Route::get('/user', function(Request $request){
-        return $request->user();
-    });
-});
+ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+     return $request->user();
+ });
+// Route::get('/user', function (Request $request) {
+//     return $request->user();
+// })->middleware('auth:api');
+ Route::controller(\App\Http\Controllers\Api\ApiAuthController ::class)->group(function(){
+     Route::post('register', 'register')->name('register');       
+     Route::post('login', 'login')->name('login');        
+     Route::post('logout', 'logout')->name('logout');        
+ });
+// Route::get('/user', function (Request $request) {
+//     return $request->user();
+//     // Only authenticated users may access this route...
+// })->middleware('auth.basic');

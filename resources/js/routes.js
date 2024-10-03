@@ -4,6 +4,7 @@ import category from './component/Category.vue'
 import User from './component/User.vue'
 import Product from './component/Product.vue'
 import Signup from './component/Signup.vue'
+import Register from './component/Register.vue'
 
 const routes = [
 
@@ -11,6 +12,12 @@ const routes = [
         name: 'Signup',
         path: '/signup',
         component: Signup,
+
+    },
+    {
+        name: 'Register',
+        path: '/register',
+        component: Register,
 
     },
     {

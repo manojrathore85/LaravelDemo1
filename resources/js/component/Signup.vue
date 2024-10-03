@@ -2,6 +2,8 @@
     <div class="wrapper">
 		<div class="d-flex align-items-center justify-content-center my-5 my-lg-0">
 			<div class="container">
+				<div v-if="successMessage" class="success-message">{{ successMessage }}</div>
+    			<div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
 				<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-2">
 					<div class="col mx-auto">
 						<div class="my-4 text-center">
@@ -88,7 +90,22 @@
 import { mapState } from 'vuex';
 import validation from '../services/validation';
 import { mapActions } from 'vuex';
-import {ACTION_SIGNUP} from '../store/storeconstants'
+import {ACTION_SIGNUP} from '../store/storeconstants';
+import { useToast } from 'vue-toastification';
+//import { handleError } from "../services/handleError";
+
+// Utility function to flatten arrays
+function flattenArray(arr) {
+    let result = [];
+    arr.forEach(item => {
+        if (Array.isArray(item)) {
+            result = result.concat(flattenArray(item));
+        } else {
+            result.push(item);
+        }
+    });
+    return result;
+}
 export default {
     name:'Signup',
     data(){
@@ -98,13 +115,43 @@ export default {
             email:'',
             password:'',
             state:'',
+			successMessage: '',
+      		errorMessage: '',
             error:[],
+			toast:useToast,
         };
     },    
     methods:{
-        ...mapActions('auth',{
-            signup:ACTION_SIGNUP,
-        }),
+		...mapActions('auth',[ACTION_SIGNUP]),
+		async signup() {
+		try {
+			const payload = {
+			firstname: this.firstname,
+			lastname: this.lastname,
+			email: this.email,
+			password: this.password,
+			};
+			const response = await this[ACTION_SIGNUP](payload);
+			toast.success('Signup successful!');
+			console.log(response); // Handle the response data if needed
+		} catch (error) {	
+
+			// const { message, validationErrors } = handleError(error);
+            //     if (validationErrors && validationErrors.Length > 0 ) {
+            //         Object.values(validationErrors).forEach(errors => {
+            //             errors.forEach(err => {
+            //                 toast.error(err);
+            //             });
+            //         });
+            //     } else {
+			// 		const messages = Array.isArray(message) ? flattenArray(message) : [message];
+            //         messages.forEach(msg => {
+            //             toast.error(msg);
+            //         });
+            //     }
+			console.log(error);
+		}
+		},
         onSignup(){
             //let validation = new validation();
             this.error= [];
@@ -127,7 +174,8 @@ export default {
                 return false;
             }
             console.log("validation passed");
-            this.signup({email:this.email, password:this.password, firstname:this.firstname, lastname:this.lastname })
+			//{email:this.email, password:this.password, firstname:this.firstname, lastname:this.lastname }
+            this.signup();
 
             
         }

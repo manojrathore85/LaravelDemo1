@@ -5,7 +5,9 @@ export default{
     namespaced:true, 
     state(){
         return {
-            name: 'state leela'
+            name: 'state leela',
+            token: localStorage.getItem('authToken') || '',
+            user: null,
         };
     },
     mutations,

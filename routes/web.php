@@ -14,17 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 // To overcome this challenge, we can head to ./routes/web.php and define a single route that will catch all valid routes and use the Blade entry file which contains our Vue application.
-Route::get('/{vue_capture?}', function () {
-    return view('index');
-})->where('vue_capture', '[\/\w\.-]*');
-// Route::get('/admin', function () {
-//     //return view('welcome');
-//     return view('admin/dashboard');
-// });
+// Route::get('/{vue_capture?}', function () {
+//     return view('index');
+// })->where('vue_capture', '[\/\w\.-]*');
+// // Route::get('/admin', function () {
+// //     //return view('welcome');
+// //     return view('admin/dashboard');
+// // });
 
-Route::get('redirect/{provider}', [App\Http\Controllers\SocialLoginController::class, 'redirectTo'])->name('social-login.redirect');
-Route::get('{provider}/callback', [App\Http\Controllers\SocialLoginController::class, 'handleCallback'])->name('social-login.callback');
 
-Auth::routes();
+// Route::get('redirect/{provider}', [App\Http\Controllers\SocialLoginController::class, 'redirectTo'])->name('social-login.redirect');
+// Route::get('{provider}/callback', [App\Http\Controllers\SocialLoginController::class, 'handleCallback'])->name('social-login.callback');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// //Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

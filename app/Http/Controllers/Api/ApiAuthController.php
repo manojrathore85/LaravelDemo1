@@ -12,34 +12,51 @@ class ApiAuthController extends Controller
 {
     use ApiResponseTrait;
     public function register(Request $request){
-        $validator = Validator::make($request->all(),[
-            'name' => 'required',
+        //echo "<pre>"; print_r($_POST); echo "</pre>";exit;
+        // $validator = Validator::make($request->all(),[
+        //     'firstname' => 'required',
+        //     'lastname' => 'required',
+        //     'email' => 'required|email|unique:users,email,',
+        //     'password' => 'required',
+        //     'c_password' => 'required|same:password',
+        // ]);
+        // if($validator->fails()){          
+        //     return $this->fail($validator->errors(),[]);
+        // }
+
+        $validated = $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
             'email' => 'required|email|unique:users,email,',
             'password' => 'required',
             'c_password' => 'required|same:password',
         ]);
-        if($validator->fails()){          
-            return $this->fail($validator->errors(),[]);
-        }
         $input = $request->all();
+        //echo "<pre>"; print_r($input); echo "</pre>";
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
 
         $data['token'] = $user->createToken('MyApp')->plainTextToken;
-        $data['name'] = $user->name;
+        $data['user'] = $user;
         return $this->success('User register successfully', $data);
     }
     public function login(Request $request){  
+        
         $validated = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-        ]);        
+        ]);   
+
         if(Auth::attempt(['email' => $request->input('email'), 'password' =>$request->input('password')])){
             $user = Auth::user();
-            $token = 
-            return $this->success('You successfull loged in', $user);  
+            //$token = 
+            $data = [
+                'user' => $user,
+                'token' => $user->createToken('API Token')->plainTextToken,
+            ];
+            return $this->success('You success full logged in', $data);  
         }else{
-           return $this->fail('Invalid user name or password');
+           return $this->fail('Invalid user name or password111');
         }
     }
     public function logout(request $request){
@@ -47,7 +64,7 @@ class ApiAuthController extends Controller
         try {
             $user =  $request->user();
             $user->tokens()->delete();
-            $this->success('You successfull logged out');
+            $this->success('You success full logged out');
         } catch (\Exception $e) {
             $this->fail('getting error:'.$e->getMessage());
         }
